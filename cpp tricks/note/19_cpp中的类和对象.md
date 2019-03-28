@@ -259,3 +259,266 @@
             }
         ```
 - 5.2 C++中的类访问修饰符
+    - 数据封装是面向对象编程的一个重要特点，它防止函数直接访问类类型的内部成员。类成员的访问限制是通过在类主体内部对各个区域标记private、public、protected来指定的。关键字private、public、protected称为访问修饰符。一个类可以有多个private、public、protected标记区域。每个标记区域在下一个区域开始之前或者在遇到类主体结束右括号之前都是有效的。**成员和类的默认访问修饰符是private**。
+        ```
+            class Base{
+                public:
+                    // 公有成员
+                private:
+                    // 私有成员
+                protected:
+                    // 保护成员
+            };
+        ```
+    - 公有成员(public):公有成员在程序中类的外部是可以访问的，可以不使用任何成员函数来设置和获取公有变量的值，见下面的实例：
+        ```
+            // 公有成员
+            class Line{
+                public:
+                    double length;
+                    void setLength(double len);
+                    double getLength(void);
+            };
+
+            // 成员函数的定义
+            void Line::setLength(double len){
+                length = len;
+            }
+
+            double Line::getLength(void){
+                return length;
+            }
+
+
+
+            int main(){
+                Line line;
+                line.setLength(5.9);  // 使用成员函数设置长度
+                cout << "线段的长度是: " << line.getLength() << endl;
+
+                // 不使用成员函数设置长度
+                line.length = 6.6;
+                cout << "线段的长度是: " << line.getLength() << endl;
+                return 0;
+            }
+        ```
+    - 私有成员(private):**私有成员变量或函数在类的外部是不可以访问的，甚至是不可查看的。只有类和友元函数可以访问私有成员。默认情况下，类的所有成员都是私有的**。下面的实例中width是一个私有成员，这意味着如果没有使用任何修饰符修饰时，类的成员将被假定是私有成员。
+        ```
+            class Box{
+            double width;  // 默认是私有成员类型！
+            public:
+                double length;
+                void setWidth(double len);
+                double getWidth(void);
+            };
+        ```
+    - 私有成员完整的实例如下：
+        ```
+            class Box{
+            public:
+                double length;
+                void setWidth(double wid);
+                double getWidth(void);
+            private:
+                double width;  // 默认是私有成员类型！
+            };
+            
+            void Box::setWidth(double wid){
+                width = wid;
+            }
+
+            double Box::getWidth(void){
+                return width;
+            }
+            // 不使用成员函数设置长度，因为长度是公有的
+            box.length = 3.15;
+            cout << "Box的长度是: " << box.length << endl;
+            // 不使用成员函数设置宽度将会报错，因为width是私有的
+            // box.width = 9.99;  错误！
+            box.setWidth(9.99);
+            cout << "Box的宽度是: " << box.getWidth() << endl;
+        ```
+    - 保护成员(protected):保护成员变量与函数和私有成员十分相似，但是有一点不同。**保护成员在派生类(即子类)中是可以访问的**。
+        ```
+            // 保护成员
+            class Box1{
+                protected:
+                    double width;   // width是父类只的保护成员，但是不像私有成员那样，类的外部无法访问
+            };
+            class SmallBox:Box1{  // SmallBox是派生类
+            public:
+                void setSmallBoxWidth(double wid);
+                double getSmallBoxWidth(void);
+            };
+            // 子类的成员函数定义
+            void SmallBox::setSmallBoxWidth(double wid){
+                width = wid;
+            }
+
+            double SmallBox::getSmallBoxWidth(void){
+                return width;
+            }
+            // 调用成员函数
+            SmallBox sbox;
+            sbox.setSmallBoxWidth(4.44);
+            cout << "派生类SmallBox的宽度是: " << sbox.getSmallBoxWidth() << endl;
+        ```
+    - 继承中的特点：有private、public、protected三种继承方式，它们相应地改变了基类成员的访问属性。但是，无论哪种方式，下面的两点都没有改变：**1.private成员只能被本类成员(类内)和友元访问，不能被派生类访问。2.protected成员可以被派生类访问**。
+        - public继承：基类private、public、protected成员的访问属性在派生类中分别变成private、public、protected
+        - private继承：基类private、public、protected成员的访问属性在派生类中分别变成private、private、private
+        - protected继承：基类private、public、protected成员的访问属性在派生类中分别变成protected、public、protected
+    - public继承实例如下：
+        ```
+            // public继承
+            // 基类
+            class A{
+                public:
+                    int a;
+                    A(){ // 构造函数
+                        a1 = 1;
+                        a2 = 2;
+                        a3 = 3;
+                        a = 4;
+                    }
+                    void fun(){  // 普通成员函数
+                        cout << "a = " << a <<  endl;
+                        cout << "a1 = " << a1 << endl;
+                        cout << "a2 = " << a2 << endl;
+                        cout << "a3 = " << a3 << endl;
+                    }
+                public:
+                    int a1;
+                protected:
+                    int a2;
+                private:
+                    int a3;
+            };
+
+            // 派生类
+            class B: public A{  // 公有继承
+                public:
+                    int a;
+                    B(int i){  // 构造函数
+                        A();
+                        a = i;
+                    }
+                    void fun(){  // 普通成员函数
+                        cout << "a = " << a <<  endl;  // 正确，public成员
+                        cout << "a1 = " << a1 << endl;  // 正确，基类的public成员，在派生类中仍是public成员。
+                        cout << "a2 = " << a2 << endl;  // 正确，基类的protected成员，在派生类中仍是protected可以被派生类
+                        // cout << "a3 = " << a3 << endl; 报错，a3在基类A中是private成员，通过public继承后，派生类中仍然是private
+                    }
+            };
+            B b(10);
+            cout << "a = " << b.a << endl;
+            cout << "a1 = " << b.a1 << endl;
+            // cout << b.a2 << endl;  // 错误，类外不能访问protected成员
+            // cout << b.a3 << endl;   // 错误，类外不能访问private成员
+        ```
+    - private继承实例如下：
+        ```
+            // 私有继承private
+            // 基类
+            class AA{
+                public:
+                    int a;
+                    AA(){
+                        a1 = 1;
+                        a2 = 2;
+                        a3 = 3;
+                        a = 4;
+                    }
+                    void fun(){
+                        cout << "a = " << a << endl;
+                        cout << "a1 = " << a1 << endl;
+                        cout << "a2 = " << a2 << endl;
+                        cout << "a3 = " << a3 << endl;
+                    }
+                public:
+                    int a1;
+                protected:
+                    int a2;
+                private:
+                    int a3;
+            };
+            // 派生类
+            class BB : private AA{
+                public:
+                    int a;
+                    BB(int i){
+                        AA();
+                        a = i;
+                    }
+                    void fun(){
+                        cout << "a = " << a << endl;  // 正确，public成员
+                        cout << "a1 = " << a1 << endl;  // 正确，基类public成员,在派生类中变成了private,可以被派生类访问
+                        cout << "a2 = " << a2 << endl;  // 正确，基类的protected成员，在派生类中变成了private,可以被派生类
+                        // cout << "a3 = " << a3 << endl;  // 错误，基类的private成员不能被派生类访问
+                    }
+            };
+            BB bb(100);
+            cout << "a = " << bb.a << endl;  // 正确,public成员
+            // cout << "a1 = " << bb.a1 << endl;    // 错误，private成员不能在类外访问。
+            // cout << "a2 = " << bb.a2 << endl;    //错误, private成员不能在类外访问。
+            // cout << "a3 = " << bb.a3 << endl;    //错误, private成员不能在类外访问。
+        ```
+    - protected继承实例如下：
+        ```
+            // 保护继承protected
+            // 基类
+            class AAA{
+                public:
+                    int a;
+                    AAA(){
+                        a1 = 1;
+                        a2 = 2;
+                        a3 = 3;
+                        a = 4;
+                    }
+                    void fun(){
+                        cout << "a = " << a << endl;
+                        cout << "a1 = " << a1 << endl;
+                        cout << "a2 = " << a2 << endl;
+                        cout << "a3 = " << a3 << endl;
+                    }
+                public:
+                    int a1;
+                protected:
+                    int a2;
+                private:
+                    int a3;
+            };
+            // 派生类
+            class BBB : protected AAA{
+                public:
+                    int a;
+                    BBB(int i){
+                        A();
+                        a = i;
+                    }
+                    void fun(){
+                        cout << "a = " << a << endl;   // 正确，public成员
+                        cout << "a1 = " << a1 << endl;  // 正确，基类的public成员，在派生类中变成了protected，可以被派生类访问
+                        cout << "a2 = " << a2 << endl;  // 正确，基类的protected成员，在派生类中还是protected，可以被派生类访问
+                        // cout << "a3 = " << a3 << endl;   // 错误，基类的private成员不能被派生类访问
+                    }
+            };
+            BBB bbb(666);
+            cout << "a = " << bbb.a << endl;  // 正确,public成员
+            // cout << "a1 = " << bbb.a1 << endl;  // 错误，protected成员不能在类外访问
+            // cout << "a2 = " << bbb.a2 << endl;  // 错误，protected成员不能在类外访问
+            // cout << "a3 = " << bbb.a3 << endl;  // 错误，private成员不能在类外访问
+        ```
+    - 如果继承时不显示声明是private、public、protected继承，**默认是private继承**；在结构体struct中默认是public继承。
+        ```
+            class B: A{
+                B b;
+                b.a;    // 错误
+                b.a1;   // 错误
+                b.a2;   // 错误
+                b.a3;   // 错误
+            }
+        ```
+    - 总结三种继承方式：
+        ![三种继承方式.png](https://upload-images.jianshu.io/upload_images/13407176-4e540cf95bd142f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+- 5.3 构造函数与析构函数
