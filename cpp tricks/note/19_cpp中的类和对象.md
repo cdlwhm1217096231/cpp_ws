@@ -521,4 +521,25 @@
         ```
     - 总结三种继承方式：
         ![三种继承方式.png](https://upload-images.jianshu.io/upload_images/13407176-4e540cf95bd142f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
+### 6.在类的外面，其实也可以用指针访问类内部的私有成员，例如：
+    ```
+        class  A{
+            private:
+                long a;
+            public:
+                A(long b): a(b){
+                    cout << "A对象的构造函数...\n";
+                }
+                void getA(){
+                    cout << "a = " << a << endl;
+                }
+        };
+        A aa(5);  // 定义对象aa，并给aa中的a赋初值
+        long *p;  
+        p = (long*)&aa;  // 令指针p指向aa中前4个字节，在这里相当于指向a
+        aa.getA();  // 用内部函数访问a
+        cout << "*p = " << *p << endl;   // 在外部直接访问a
+        *p = 8;   // 在外部改变a的值
+        aa.getA();    // 输出改变后的结果
+        cout << "*p = " << *p << endl;
+    ```
