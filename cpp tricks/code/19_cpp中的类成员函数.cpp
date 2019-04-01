@@ -123,6 +123,20 @@ void Student::input(class Student *stu){
     stu->input_program();
 }
 
+
+// 在类的外面，其实也可以用指针访问类内部的私有成员
+class  A{
+    private:
+        long a;
+    public:
+        A(long b): a(b){
+            cout << "A对象的构造函数...\n";
+        }
+        void getA(){
+            cout << "a = " << a << endl;
+        }
+};
+
 int main(){
     Box box1;
     Box box2;
@@ -149,6 +163,16 @@ int main(){
     Student *dana_pointer = &dana;
     dana.input(dana_pointer);
     dana.show_student_info(dana_pointer);
+    // 在类的外面，其实也可以用指针访问类内部的私有成员
+    cout << "-----------------------------------------------------\n";
+    A aa(5);  // 定义对象aa，并给aa中的a赋初值
+    long *p;  
+    p = (long*)&aa;  // 令指针p指向aa中前4个字节，在这里相当于指向a
+    aa.getA();  // 用内部函数访问a
+    cout << "*p = " << *p << endl;   // 在外部直接访问a
+    *p = 8;   // 在外部改变a的值
+    aa.getA();    // 输出改变后的结果
+    cout << "*p = " << *p << endl;
     return 0;
 }
 
