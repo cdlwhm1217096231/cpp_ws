@@ -1,8 +1,0 @@
-{
-    "files.encoding": "gb2312",
-    "editor.fontSize": 14,
-    "files.associations": {
-        "ostream": "cpp",
-        "iostream": "cpp"
-    },
-}
