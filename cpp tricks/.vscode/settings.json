@@ -1,7 +1,8 @@
 {
+    "files.encoding": "gb2312",
+    "editor.fontSize": 14,
     "files.associations": {
-        "iosfwd": "cpp",
-        "vector": "cpp",
+        "ostream": "cpp",
         "iostream": "cpp"
-    }
+    },
 }
