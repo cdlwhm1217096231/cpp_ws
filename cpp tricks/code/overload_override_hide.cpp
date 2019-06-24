@@ -3,7 +3,7 @@
 using namespace std;
 
 
-// é‡è½½ã€é‡å†™(è¦†ç›–)ã€éšè—å¯¹æ¯”
+// ÖØÔØ¡¢ÖØĞ´(¸²¸Ç)¡¢Òş²Ø¶Ô±È
 
 class A{
     public:
@@ -11,25 +11,25 @@ class A{
         void test(double i);  // overload
         void test(int i, double j);  // overload
         void test(double i, int j);  // overload
-        // int test(int i);  å‡½æ•°é‡è½½ä¸å…³å¿ƒè¿”å›å€¼çš„ç±»å‹ï¼Œæ‰€ä»¥ä¸æ˜¯å‡½æ•°é‡è½½ï¼ï¼ï¼
+        // int test(int i);  º¯ÊıÖØÔØ²»¹ØĞÄ·µ»ØÖµµÄÀàĞÍ£¬ËùÒÔ²»ÊÇº¯ÊıÖØÔØ£¡£¡£¡
 };
 
-// é‡å†™(è¦†ç›–)override
+// ÖØĞ´(¸²¸Ç)override
 class Base{
     public:
-        virtual void fun(int i){   // åŸºç±»ä¸­è¢«é‡å†™çš„å‡½æ•°ï¼
+        virtual void fun(int i){   // »ùÀàÖĞ±»ÖØĞ´µÄº¯Êı£¡
             cout << "Base::fun(int): " << i << endl;  
         }
 };
 
 class Derived: public Base{
     public:
-        virtual void fun(int i){   // åœ¨æ´¾ç”Ÿç±»ä¸­é‡å†™åŸºç±»ä¸­çš„å‡½æ•°
+        virtual void fun(int i){   // ÔÚÅÉÉúÀàÖĞÖØĞ´»ùÀàÖĞµÄº¯Êı
             cout << "Derived::fun(int): " << i << endl;
         }
 };
 
-// éšè—hide
+// Òş²Øhide
 class AA{
     public:
         void func(double i, int j){
@@ -45,7 +45,7 @@ class BB: public AA{
         }
 };
 
-// é‡è½½ é‡å†™ éšè—çš„å¯¹æ¯”
+// ÖØÔØ ÖØĞ´ Òş²ØµÄ¶Ô±È
 class AAA{
     public:
         virtual void f(float x){
@@ -57,7 +57,7 @@ class AAA{
         void h(float x){
             cout << "AAA::h(float x): " << x << endl;
         }
-        // å‡½æ•°é‡è½½
+        // º¯ÊıÖØÔØ
         void foo(int i){
             cout << "AAA::foo(int i): " << i << endl;
         }
@@ -87,7 +87,7 @@ int main(){
     cout << "---------------------------------------\n";
     BB bb;
     bb.func(1000);  // BB::func(int i)
-    // bb.func(0.01, 1000);  BB::funcå‡½æ•°ä¸æ¥å—2ä¸ªå‚æ•°ï¼ï¼ï¼
+    // bb.func(0.01, 1000);  BB::funcº¯Êı²»½ÓÊÜ2¸ö²ÎÊı£¡£¡£¡
     cout << "---------------------------------------\n";
     AAA aaa;
     BBB bbb;
