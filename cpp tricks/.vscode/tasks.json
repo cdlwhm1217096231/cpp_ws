@@ -1,5 +1,5 @@
 {
-    "version": "0.1.0",
+    "version": "2.0.0",
     "command": "g++",
     "args": ["-g","${file}", "-std=c++11", "-o","${fileDirname}/${fileBasenameNoExtension}.exe"], // 编译命令参数
     "problemMatcher": {
