@@ -35,4 +35,4 @@
 - 除了可以灵活应对子步骤的变化外，“不要调用我，让我来调用你”的反向控制结构是Template Method模式的典型应用。
 - 在具体实现方面，被Template Method模式调用的虚方法可以具体实现，也可以没有任何具体实现(如抽象方法，纯虚方法)，但一般推荐将它们设置为protected方法。
 #### 7.资料下载
-- [笔记，欢迎star,follow,fork......](https://github.com/cdlwhm1217096231/cpp_ws/tree/master/C%2B%2B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)
+- [代码及笔记，欢迎star,follow,fork......](https://github.com/cdlwhm1217096231/cpp_ws/tree/master/C%2B%2B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)
