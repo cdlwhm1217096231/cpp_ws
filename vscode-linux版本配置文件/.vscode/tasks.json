@@ -1,0 +1,11 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command":"g++",
+            "args": ["-g","${file}","-std=c++11", "-o","${fileDirname}/${fileBasenameNoExtension}.out"],
+        }
+    ]
+}
